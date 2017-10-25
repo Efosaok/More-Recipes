@@ -5,7 +5,7 @@
 
 .row1{
     padding-top: 10px;
-    margin-left: 55%;
+    margin-left: 75%;
 }
 
 .searchbtn {
@@ -206,7 +206,7 @@
    bottom: 0;
    width: 100%;
    color: white;
-   height: 100px;
+   height: 40px;
    border-top: 5px solid pink;
 }
 
@@ -230,6 +230,7 @@ ul {
 }
 
 .copyright-text {
+	margin-top: 1%;
 }
 
 .social-media-icons {
@@ -246,31 +247,44 @@ ul {
 	margin-top: 1%;
 }
 
-
-.product-image{
-	width: 40%;
-	height: 200px;
-	margin-top: 2%;
-	margin-left: 30%;
+.product-ingredients {
+	margin-left: -10%;
 }
 
-.product-details {
-	margin-top: 20%;
+.product-image{
+	width: 100%;
+	height: 520px;
+	margin-top: 2%;
 	border-bottom: 2px solid pink;
 }
 
-.review-form{
-	margin-bottom: 15%;
-	width: 40%;
+.one-info {
+	font-size: 1.5em;
+	margin-left: 30%;
+	width: 35%;
 	margin-top: 2%;
+}
+
+.img-product {
+	width: 60%;
+	height: 400px;
+	margin-left: 30%;
+}
+
+.review-form{
+	margin-bottom: 10%;
+	width: 50%;
+	margin-top: 3%;
 	margin-left: 3%;
 }
 
 .review {
-	height: 100px;
+	height: 120px;
 }
 
 .post {
+	margin-top: -13%;
+	margin-left: 102%;
 	background-color: grey;
 	color: pink;
 }
@@ -278,4 +292,19 @@ ul {
 .post:hover {
 	background-color: pink;
 	color: grey;
+}
+
+.product-ing {
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-top: 2%;
+}
+
+.product-des {
+	margin-top: 2%;
+	margin-left: 25%;
+}
+
+.instruction-heading {
+	margin-top: 2%;
 }

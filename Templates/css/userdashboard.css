@@ -253,6 +253,12 @@
 	margin-top: 43%;
 }
 
+.first-see-moreh {
+	margin-top: -10%;
+	margin-left: 65%;
+	margin-bottom: 5%;
+}
+
 .see-more {
 	color:grey;
 }
@@ -270,7 +276,7 @@
    bottom: 0;
    width: 100%;
    color: white;
-   height: 100px;
+   height: 40px;
    border-top: 5px solid pink;
 }
 
@@ -291,6 +297,7 @@
 }
 
 .copyright-text {
+	margin-top: 1%;
 }
 
 .social-media-icons {

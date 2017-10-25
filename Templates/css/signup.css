@@ -7,13 +7,14 @@
 }
 
 .form-container {
+	margin-top: 3%;
 	margin-left: 13%;
 }
 
 .signup-container {
 	width: 50%;
 	margin-left: 10%;
-	margin-top: 5%;
+	margin-top: 3%;
 	border-top: 5px solid pink;
 	border-top: 5px solid pink;
 	font-family: 'Roboto', sans-serif;
@@ -247,7 +248,7 @@
    bottom: 0;
    width: 100%;
    color: white;
-   height: 100px;
+   height: 40px;
    border-top: 5px solid pink;
 }
 
@@ -282,4 +283,17 @@
 
 .searchbtn-footer {
 	margin-top: 1%;
+}
+
+h4 {
+	margin-top: 2%;
+	margin-bottom: -2%;
+}
+
+.signup-container {
+	margin-left: 25%;
+}
+
+.firstname {
+	margin-top: 4%;
 }
