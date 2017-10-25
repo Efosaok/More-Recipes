@@ -9,6 +9,8 @@ dotenv.config();
 // Set up the express app
 const app = express();
 
+server(app);
+
 // Log requests to the console.
 app.use(logger('dev'));
 
