@@ -253,6 +253,15 @@
 	margin-top: 43%;
 }
 
+<<<<<<< HEAD
+=======
+.first-see-moreh {
+	margin-top: -10%;
+	margin-left: 65%;
+	margin-bottom: 5%;
+}
+
+>>>>>>> gh-pages
 .see-more {
 	color:grey;
 }
@@ -270,7 +279,11 @@
    bottom: 0;
    width: 100%;
    color: white;
+<<<<<<< HEAD
    height: 100px;
+=======
+   height: 40px;
+>>>>>>> gh-pages
    border-top: 5px solid pink;
 }
 
@@ -291,6 +304,10 @@
 }
 
 .copyright-text {
+<<<<<<< HEAD
+=======
+	margin-top: 1%;
+>>>>>>> gh-pages
 }
 
 .social-media-icons {
