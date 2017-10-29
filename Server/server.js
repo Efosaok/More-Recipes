@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 
+server(app);
+
 app.set('port', process.env.PORT || 3000);
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
