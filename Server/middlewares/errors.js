@@ -1,3 +1,12 @@
+const alphaNumeric = (inputtxt) => {
+  const letterNumber = /((^[0-9]+[a-z]+)|(^[a-z]+[0-9]+))+[0-9a-z]+$/i;
+  if (inputtxt.match(letterNumber)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 const checkNullInput = (req, res, next) => {
   if (req.method !== 'POST') {
     return res.status(300).send({ message: 'Invalid request method' });
@@ -20,26 +29,28 @@ const checkNullInput = (req, res, next) => {
       if (info === '') {
         isNull = true;
       }
-      if (!isUndefined) {
-        if (info.replace(/\s/g, '').length) {
-          isWhiteSpace = false;
+      if (!isUndefined && !alphaNumeric(info)) {
+        if (Number.isInteger(parseFloat(info))) {
+          isString = false;
         }
       }
-      if (Number.isInteger(parseFloat(info))) {
-        isString = false;
+      if (!isUndefined && typeof info !== 'number') {
+        if (info.replace(/\s/g, '').length === 0) {
+          isWhiteSpace = true;
+        }
       }
     });
     if (isUndefined) {
-      return res.status(401).send({ message: 'Please fill in all fields' });
+      return res.status(400).send({ error: 'Please fill in all fields' });
     }
     if (isNull) {
-      return res.status(400).send({ message: 'A field does not contain any input' });
+      return res.status(400).send({ error: 'A field does not contain any input' });
     }
     if (!isString) {
-      return res.status(400).send({ message: 'Only texts can be inputed' });
+      return res.status(400).send({ error: 'Only texts can be inputed' });
     }
     if (isWhiteSpace) {
-      return res.status(400).send({ message: 'Your input should not contain only white-spaces' });
+      return res.status(400).send({ error: 'Your input should not contain only white-spaces' });
     } else {
       next();
     }
@@ -48,8 +59,8 @@ const checkNullInput = (req, res, next) => {
 
 const checkInvalidParams = (req, res, next) => {
   const { recipeId } = req.params;
-  if (typeof (recipeId) !== 'string') {
-    return res.status(400).send({ message: 'hey ,You sent a bad request' });
+  if (!Number.isInteger(parseFloat(recipeId))) {
+    return res.status(400).send({ error: 'The url is not correct' });
   } else {
     next();
   }
@@ -57,7 +68,7 @@ const checkInvalidParams = (req, res, next) => {
 
 const checkInvalidReview = (req, res, next) => {
   if (req.method !== 'POST') {
-    return res.status(300).send({ message: 'Invalid request method' });
+    return res.status(400).send({ error: 'Invalid request method' });
   } else {
     let isUndefined = false;
     let isNull = false;
@@ -71,14 +82,17 @@ const checkInvalidReview = (req, res, next) => {
         isNull = true;
       }
     });
-    if (Number.isInteger(parseFloat(reviews))) {
-      return res.status(400).send({ message: 'Your reviews should be text and not numbers' });
-    }
     if (isUndefined) {
-      return res.status(400).send({ message: 'No review message found' });
+      return res.status(400).send({ error: 'No review message found' });
     }
     if (isNull) {
-      return res.status(400).send({ message: 'Your review cannot be empty text' });
+      return res.status(400).send({ error: 'Your review cannot be empty text' });
+    }
+    if (!isUndefined && !alphaNumeric(reviews) && Number.isInteger(parseFloat(reviews))) {
+      return res.status(400).send({ error: 'Your reviews should be text and not numbers' });
+    }
+    if (reviews.replace(/\s/g, '').length === 0 && typeof review !== 'number') {
+      return res.status(400).send({ error: 'Your review message cannot contain only white spaces' });
     } else {
       next();
     }
