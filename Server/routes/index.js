@@ -12,5 +12,5 @@ export default (app) => {
   app.put('/api/v1/recipes/:recipeId', errorHandler.checkInvalidParams, recipeController.modifyRecipe);
   app.post('/api/v1/recipes/:recipeId/upvote', recipeController.upvoteRecipe);
   app.post('/api/v1/recipes/:recipeId/downvote', recipeController.downvoteRecipe);
-  app.get('/api/v1/recipes?sort=upvotes&order=des', recipeController.getRecipesByUpvotes);
+  app.get('/api/v1/recipes/:recipeId', errorHandler.checkInvalidParams, recipeController.getARecipe);
 };
