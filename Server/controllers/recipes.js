@@ -35,7 +35,7 @@ class Recipes {
       reviews,
     };
     recipesDatabase.push(response);
-    res.status(200).send({ message: 'Recipe Successfully saved and created', response });
+    res.status(201).send({ message: 'Recipe Successfully saved and created', response });
   }
 
   static deleteRecipe(req, res) {
@@ -50,45 +50,65 @@ class Recipes {
     if (isFound === true) {
       res.status(200).send({ message: 'recipe successfully deleted' });
     } else {
-      res.status(400).send({ message: 'Invalid request sent' });
+      res.status(400).send({ error: 'recipe you intended to delete does not exist' });
     }
   }
 
   static getAllRecipes(req, res) {
     const {
-  	  sort,
-  	  order,
-  	} = req.query;
-  	let allRecipes;
-  	if (sort === 'upvotes' && order === 'des') {
-  	  recipesDatabase.sort((a, b) => {
-      allRecipes = b.upvotes - a.upvotes;
-      return allRecipes;
-      res.status(200).send({ message: 'Success', allRecipes });
+      sort,
+      order,
+    } = req.query;
+    let allRecipes;
+    if (sort === 'upvotes' && order === 'des') {
+      recipesDatabase.sort((a, b) => {
+        allRecipes = b.upvotes - a.upvotes;
+        res.status(200).send({ message: 'Success', allRecipes });
+      });
+    } else {
+      res.status(200).send(recipesDatabase);
+    }
+  }
+
+  static getARecipe(req, res) {
+    const { recipeId } = req.params;
+    let isFound = false;
+    let oneRecipe;
+    recipesDatabase.forEach((recipe) => {
+      if (recipe.id === parseFloat(recipeId)) {
+        oneRecipe = recipe;
+        isFound = true;
+      }
     });
-  	}
-    res.status(200).send(recipesDatabase);
+    if (isFound) {
+      res.status(200).send({ message: 'Success, recipe is found', oneRecipe });
+    } else {
+      res.status(400).send({ error: 'recipe you intended to find cannot be found' });
+    }
   }
 
   static postReview(req, res) {
-    const currentDate = '' + new Date();
+    const currentDate = `${new Date()}`;
     const { reviews } = req.body;
     const { recipeId } = req.params;
     const createdAt = currentDate.slice(0, 24);
     const updatedAt = currentDate.slice(0, 24);
+    reviewIdTracker += 1;
+    const id = reviewIdTracker;
     const response = {
+      id,
       reviews,
       recipeId,
       createdAt,
       updatedAt,
     };
     reviewsDatabase.push(response);
-    let isFound = false
+    let isFound = false;
     recipesDatabase.forEach((recipe) => {
       if (recipe.id === parseFloat(recipeId)) {
         recipe.reviews += 1;
         recipe.updatedAt = updatedAt;
-        isFound = true
+        isFound = true;
       }
     });
     if (isFound) {
@@ -96,7 +116,6 @@ class Recipes {
     } else {
       res.status(400).send({ message: 'The recipe you intended to review cannot be found' });
     }
-    
   }
 
   static modifyRecipe(req, res) {
@@ -134,7 +153,7 @@ class Recipes {
     if (isFound) {
       res.status(200).send({ message: 'Success, You have successfully upvoted the recipe' });
     } else {
-      res.status(400).send({ message: 'The recipe you intended to upvote cannot be found' });
+      res.status(400).send({ error: 'The recipe you intended to upvote cannot be found' });
     }
   }
 
@@ -152,16 +171,8 @@ class Recipes {
     if (isFound) {
       res.status(200).send({ message: 'Success, You have successfully downvoted the recipe' });
     } else {
-      res.status(400).send({ message: 'The recipe you intended to downvote cannot be found' });
+      res.status(400).send({ error: 'The recipe you intended to downvote cannot be found' });
     }
-  }
-
-  static getRecipesByUpvotes(req, res) {
-    let allRecipes;
-    recipesDatabase.sort((a, b) => {
-      allRecipes = b.upvotes - a.upvotes;
-    });
-    res.status(200).send({ message: 'Success', allRecipes });
   }
 }
 
