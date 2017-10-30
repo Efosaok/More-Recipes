@@ -7,7 +7,8 @@
   	"start": "babel-node ./Server/server.js",
     "build": "babel ./Server/ -d ./Server/dist",
     "start:dev": "babel-node ./Server/server.js --exec babel-node ./Server/server.js",
-    "test": "mocha ./Server/test/tests.js --compilers js:babel-core/register --exit"
+    "test": "mocha ./Server/test/tests.js --compilers js:babel-core/register --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
