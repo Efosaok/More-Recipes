@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "babel ./Server/ -d ./Server/dist",
-    "start:dev": "node ./Server/server.js --exec babel-node ./Server/server.js",
+    "start:dev": "babel-node ./Server/server.js --exec babel-node ./Server/server.js",
     "test": "mocha ./Server/test/tests.js --compilers js:babel-core/register --exit"
   },
   "repository": {
