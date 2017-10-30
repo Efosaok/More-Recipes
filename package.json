@@ -1,0 +1,58 @@
+{
+  "name": "more-recipes",
+  "version": "1.0.0",
+  "description": "more recipes api",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node ./Server/server.js",
+    "build": "babel ./Server/ -d ./Server/dist",
+    "start:dev": "babel-node ./Server/server.js --exec babel-node ./Server/server.js",
+    "test": "nyc --reporter=html --reporter=text mocha ./Server/test/tests.js --compilers js:babel-core/register --exit",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Efosaok/More-Recipes.git"
+  },
+  "author": "Efosa Okpugie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Efosaok/More-Recipes/issues"
+  },
+  "homepage": "https://github.com/Efosaok/More-Recipes#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "coveralls": "^3.0.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^4.0.1",
+    "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1",
+    "supertest": "^3.0.0",
+    "uuid": "^3.1.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.9.0",
+    "express": "^4.16.2",
+    "mocha": "^4.0.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.1",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.17.2",
+    "supertest": "^3.0.0",
+    "uuid": "^3.1.0"
+  }
+}

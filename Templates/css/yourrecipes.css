@@ -1,0 +1,27 @@
+h3 {
+	margin-top: 2%;
+}
+
+.btn-danger {
+	margin-left: 3%;
+}
+
+.add-recipe {
+	margin-left: 25%;
+	width: 50%;
+	margin-bottom: 20%;
+}
+
+.btn-success {
+	margin-left: 40%;
+	margin-bottom: 18%;
+}
+
+.form-control {
+	height: 50px;
+	font-size: 20px
+}
+
+textarea {
+	height: 80px;
+}
