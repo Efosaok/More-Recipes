@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import logger from 'morgan';
 import server from './routes/index';
+import userRoutes from './routes/users';
 
 dotenv.config();
 // Set up the express app
@@ -19,7 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 
 server(app);
+userRoutes(app);
 
+app.set('superSecret', process.env.SECRET);
 app.set('port', process.env.PORT || 3000);
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
