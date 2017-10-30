@@ -4,7 +4,7 @@
   "description": "more recipes api",
   "main": "index.js",
   "scripts": {
-  	"start": "babel-node ./Server/server.js",
+    "start": "babel-node ./Server/server.js",
     "build": "babel ./Server/ -d ./Server/dist",
     "start:dev": "babel-node ./Server/server.js --exec babel-node ./Server/server.js",
     "test": "nyc --reporter=html --reporter=text mocha ./Server/test/tests.js --compilers js:babel-core/register --exit",
@@ -34,6 +34,7 @@
     "istanbul": "^0.4.5",
     "mocha": "^4.0.1",
     "mocha-lcov-reporter": "^1.3.0",
+    "nyc": "^11.2.1",
     "supertest": "^3.0.0",
     "uuid": "^3.1.0"
   },
