@@ -1,8 +1,8 @@
 const isValidEmail = (mail) => {
- if (/^\w+([\.-]?\w+)*@\w+([ \.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-    return (true);
+  if (/^\w+([\.-]?\w+)*@\w+([ \.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
   }
-    return (false);
+  return false;
 };
 
 const checkValidUserDetails = (req, res, next) => {
