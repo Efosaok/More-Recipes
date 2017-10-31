@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for Server/routes/index.js</title>
+    <title>Code coverage report for Server/routes/users.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="..\..\prettify.css" />
     <link rel="stylesheet" href="..\..\base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="..\..\index.html">All files</a> / <a href="index.html">Server/routes</a> index.js
+      <a href="..\..\index.html">All files</a> / <a href="index.html">Server/routes</a> users.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>14/14</span>
+        <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/1</span>
+        <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>14/14</span>
+        <span class='fraction'>4/4</span>
       </div>
     </div>
   </div>
@@ -50,52 +50,19 @@
 5
 6
 7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+8</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import recipeController from '../controllers/recipes';
-import errorHandler from '../middlewares/errors';
-import userController from '../controllers/users';
-import auth from '../middlewares/auth';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import userController from '../controllers/users';
+import errorHandler from '../middlewares/users';
 &nbsp;
 export default (app) =&gt; {
-  app.get('/api', (req, res) =&gt; {
-    res.send({ message: 'Welcome to the more-recipes Api' });
-  });
-  app.post('/api/v1/recipes', errorHandler.checkNullInput, recipeController.addRecipe);
-  app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
-  app.get('/api/v1/recipes', recipeController.getAllRecipes);
-  app.post('/api/v1/recipes/:recipeId/reviews', errorHandler.checkInvalidReview, recipeController.postReview);
-  app.put('/api/v1/recipes/:recipeId', recipeController.modifyRecipe);
-  app.post('/api/v1/recipes/:recipeId/upvote', recipeController.upvoteRecipe);
-  app.post('/api/v1/recipes/:recipeId/downvote', recipeController.downvoteRecipe);
-  app.get('/api/v1/recipes/:recipeId', recipeController.getARecipe);
+  app.post('/api/v1/users/signup', errorHandler.checkValidUserDetails, userController.signup);
+  app.post('/api/v1/users/signin', userController.signin);
 };
 &nbsp;</pre></td></tr>
 </table></pre>

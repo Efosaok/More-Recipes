@@ -1,41 +1,26 @@
-import db from '../db/database.json';
+import models from '../db/models';
 
-const recipesDatabase = db.recipes;
-const reviewsDatabase = db.reviews;
-let idTracker = 0;
-let reviewIdTracker = 0;
-class Recipes {
+const Recipes = models.Recipes;
+
+class Recipe {
   static addRecipe(req, res) {
     const {
       name,
       category,
       description,
-      creator,
       ingredients,
     } = req.body;
-    const currentDate = `${new Date()}`;
-    const createdAt = currentDate.slice(0, 24);
-    const updatedAt = currentDate.slice(0, 24);
-    const upvotes = 0;
-    const downvotes = 0;
-    const reviews = 0;
-    idTracker += 1;
-    const id = idTracker;
-    const response = {
-      id,
+    const { userId } = req.decoded;
+    return Recipes
+    .create({
       name,
       category,
-      ingredients,
-      creator,
       description,
-      createdAt,
-      updatedAt,
-      upvotes,
-      downvotes,
-      reviews,
-    };
-    recipesDatabase.push(response);
-    res.status(201).send({ message: 'Recipe Successfully saved and created', response });
+      ingredients,
+      userId,
+    })
+    .then(user => res.status(200).send({ message: 'Success, recipe creadte', user }))
+    .catch(error => res.status(400).send({ error: 'an error occured' }));
   }
 
   static deleteRecipe(req, res) {
@@ -176,4 +161,4 @@ class Recipes {
   }
 }
 
-export default Recipes;
+export default Recipe;

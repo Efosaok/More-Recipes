@@ -1,20 +1,17 @@
 import recipeController from '../controllers/recipes';
 import errorHandler from '../middlewares/errors';
-import userController from '../controllers/users';
 import auth from '../middlewares/auth';
 
 export default (app) => {
   app.get('/api', (req, res) => {
     res.send({ message: 'Welcome to the more-recipes Api' });
   });
-  app.post('/api/v1/recipes',auth, errorHandler.checkNullInput, recipeController.addRecipe);
-  app.delete('/api/v1/recipes/:recipeId', errorHandler.checkInvalidParams, recipeController.deleteRecipe);
+  app.post('/api/v1/recipes', auth, errorHandler.checkNullInput, recipeController.addRecipe);
+  app.delete('/api/v1/recipes/:recipeId', recipeController.deleteRecipe);
   app.get('/api/v1/recipes', recipeController.getAllRecipes);
   app.post('/api/v1/recipes/:recipeId/reviews', errorHandler.checkInvalidReview, recipeController.postReview);
-  app.put('/api/v1/recipes/:recipeId', errorHandler.checkInvalidParams, recipeController.modifyRecipe);
+  app.put('/api/v1/recipes/:recipeId', recipeController.modifyRecipe);
   app.post('/api/v1/recipes/:recipeId/upvote', recipeController.upvoteRecipe);
   app.post('/api/v1/recipes/:recipeId/downvote', recipeController.downvoteRecipe);
-  app.get('/api/v1/recipes/:recipeId', errorHandler.checkInvalidParams, recipeController.getARecipe);
-  //app.post('/api/v1/users/signup', userController.signup);
-  console.log(process.env.PORT);
+  app.get('/api/v1/recipes/:recipeId', recipeController.getARecipe);
 };

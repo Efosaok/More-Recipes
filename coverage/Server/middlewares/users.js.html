@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for Server/middlewares/users.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="..\..\prettify.css" />
+    <link rel="stylesheet" href="..\..\base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(..\..\sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="..\..\index.html">All files</a> / <a href="index.html">Server/middlewares</a> users.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">63.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>19/30</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">47.83% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>11/23</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">50% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>1/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">62.07% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>18/29</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line medium'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const <span class="fstat-no" title="function not covered" >isValidEmail = (</span>mail) =&gt; {
+<span class="cstat-no" title="statement not covered" >  if (/^\w+([\.-]?\w+)*@\w+([ \.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {</span>
+<span class="cstat-no" title="statement not covered" >    return true;</span>
+  }
+<span class="cstat-no" title="statement not covered" >  return false;</span>
+};
+&nbsp;
+const checkValidUserDetails = (req, res, next) =&gt; {
+  const {
+    firstname,
+    lastname,
+    username,
+    email,
+    password,
+    confirmpassword,
+  } = req.body;
+  const matchingDetails = {
+    0: 'firstname',
+    1: 'lastname',
+    2: 'username',
+    3: 'email',
+    4: 'password',
+    5: 'confirmpassword',
+    };
+  const reqBody = [firstname, lastname, username, email, password, confirmpassword];
+  let undefinedBody;
+  let isNull = false;
+  let isWhiteSpace = false;
+  for (let i = 0; i &lt; reqBody.length; i += 1) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (reqBody[i] === undefined) {
+<span class="cstat-no" title="statement not covered" >      undefinedBody = matchingDetails[i];</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (reqBody[i] === '') {
+<span class="cstat-no" title="statement not covered" >      isNull = true;</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (reqBody[i].replace(/\s/g, '').length === 0) {
+<span class="cstat-no" title="statement not covered" >      isWhiteSpace = true;</span>
+    }
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (undefinedBody) {
+<span class="cstat-no" title="statement not covered" >    return res.status(400).send({ error: `Please input ${undefinedBody}` });</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!isValidEmail) {
+<span class="cstat-no" title="statement not covered" >    return res.status(400).send({ error: 'Please enter a valid email' });</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (isNull) {
+<span class="cstat-no" title="statement not covered" >    return res.status(400).send({ error: 'An input field cannot be blank' });</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (isWhiteSpace) {
+<span class="cstat-no" title="statement not covered" >    return res.status(400).send({ error: 'Input field cannot contain only white spaces' });</span>
+  }
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!undefinedBody &amp;&amp; Number.isInteger(parseFloat(firstname || <span class="branch-1 cbranch-no" title="branch not covered" >lastname || <span class="branch-2 cbranch-no" title="branch not covered" >username))) {</span></span>
+<span class="cstat-no" title="statement not covered" >    return res.status(400).send({ error: 'Your names cannot be digits only' });</span>
+  } else {
+    next();
+  }
+};
+&nbsp;
+export default {
+  checkValidUserDetails,
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 31 2017 12:49:38 GMT+0100 (W. Central Africa Standard Time)
+</div>
+</div>
+<script src="..\..\prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="..\..\sorter.js"></script>
+</body>
+</html>

@@ -3,15 +3,12 @@
     "username": "pggcvpyn",
     "password": "_yFVWCbs1T_z9tLYys68q-lmhRoAhYm9",
     "database": "pggcvpyn",
-    "host": "babar.elephantsql.com (babar)",
-    "dialect": "postgres"
+    "host": "babar.elephantsql.com",
+    "dialect": "postgres",
+    "port": 5432
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "use_env_variable": "DATABASE_URL"
   },
   "production": {
     "username": "root",

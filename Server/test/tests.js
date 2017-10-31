@@ -174,17 +174,6 @@ describe('test-cases for api routes', () => {
           expect(res.body.oneRecipe.name).to.equal('Spaked Rosillary Dessert');
         });
     });
-    it('returns an error message when the passed recipeId is a text', (done) => {
-      request(app)
-        .get('/api/v1/recipes/tre')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(400, done)
-        .expect((res) => {
-          const { error } = res.body;
-          expect(error).to.equal('The url is not correct');
-        });
-    });
     it('returns an error message when the passed recipe is not in db', (done) => {
       request(app)
         .get('/api/v1/recipes/3')
@@ -217,16 +206,6 @@ describe('test-cases for api routes', () => {
         .expect((res) => {
           expect(res.body.length).to.equal(1);
           expect(res.body[0].creator).to.equal('3greatchef');
-        });
-    });
-    it('returns an error message when the recipeId to delete a recipe is a text', (done) => {
-      request(app)
-        .delete('/api/v1/recipes/tre')
-        .set('Accept', 'application/json')
-        .expect('Content-Type', /json/)
-        .expect(400, done)
-        .expect((res) => {
-          expect(res.body.error).to.equal('The url is not correct');
         });
     });
     it('returns an error message when the recipe to delete is not in db', (done) => {
@@ -304,6 +283,33 @@ describe('test-cases for api routes', () => {
         .expect((res) => {
           const { downvotes } = res.body[0];
           expect(downvotes).to.equal(1);
+        });
+    });
+  });
+
+  describe('POST /api/v1/users/signup', () => {
+  	let tokenGenerated;
+    it('creates a new user if all user input is met', (done) => {
+      const userInputs = {
+        firstname: 'Efosa',
+        lastname: 'Okpugie',
+        username: 'efosky',
+        email: 'efosaokpugie@gmail.com',
+        password: 'swampious',
+        confirmpassword: 'swampious',
+      };
+      request(app)
+        .post('/api/v1/users/signup')
+        .send(userInputs)
+        .set('Accept', 'application/json')
+        .expect('Content-Type', /json/)
+        .expect(200, done)
+        .expect((res) => {
+          console.log(res.body);
+          expect(res.body.message).to.equal('You have successfully signed up');
+          expect(res.body.firstname).to.equal(userInputs.firstname);
+          expect(res.body.lastname).to.equal(userInputs.lastname);
+          expect(res.body.email).to.equal(userInputs.email);
         });
     });
   });

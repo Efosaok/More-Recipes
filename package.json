@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "babel-node ./Server/server.js",
-    "build": "babel ./Server/ -d ./Server/dist",
     "start:dev": "nodemon ./Server/server.js --exec babel-node ./Server/server.js",
-    "test": "nyc --reporter=html --reporter=text mocha ./Server/test/tests.js --compilers js:babel-core/register --exit",
+    "test": "nyc --reporter=html --reporter=text mocha --timeout 250000 ./Server/test/tests.js --compilers js:babel-core/register --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

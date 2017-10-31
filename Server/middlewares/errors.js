@@ -57,15 +57,6 @@ const checkNullInput = (req, res, next) => {
   }
 };
 
-const checkInvalidParams = (req, res, next) => {
-  const { recipeId } = req.params;
-  if (!Number.isInteger(parseFloat(recipeId))) {
-    return res.status(400).send({ error: 'The url is not correct' });
-  } else {
-    next();
-  }
-};
-
 const checkInvalidReview = (req, res, next) => {
   if (req.method !== 'POST') {
     return res.status(400).send({ error: 'Invalid request method' });
@@ -102,5 +93,4 @@ const checkInvalidReview = (req, res, next) => {
 export default {
   checkNullInput,
   checkInvalidReview,
-  checkInvalidParams,
 };
