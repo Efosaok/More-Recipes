@@ -427,8 +427,7 @@ div.user-menu div.user-menu-content:not(.active){
 }
 
 .footer {
-	background-color: grey;
-   position: fixed;
+   background-color: grey;
    margin-top: 20%;
    left: 0;
    bottom: 0;

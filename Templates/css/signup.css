@@ -1,5 +1,5 @@
 .form-control { 
-	width: 200%;
+	width: 250%;
 	margin-bottom: 8%;
 	border: none;
 	border-bottom: 2px solid pink; 
@@ -13,10 +13,8 @@
 
 .signup-container {
 	width: 50%;
-	margin-left: 10%;
+	margin-left: 12%;
 	margin-top: 3%;
-	border-top: 5px solid pink;
-	border-top: 5px solid pink;
 	font-family: 'Roboto', sans-serif;
 	margin-bottom: 10%;
 }
