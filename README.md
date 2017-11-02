@@ -1,41 +1,58 @@
-## status
+## status -Ongoing development
 [![Coverage Status](https://coveralls.io/repos/github/Efosaok/More-Recipes/badge.svg?branch=development)](https://coveralls.io/github/Efosaok/More-Recipes?branch=development) [![Build Status](https://travis-ci.org/Efosaok/More-Recipes.svg?branch=development)](https://travis-ci.org/Efosaok/More-Recipes)
 # More-Recipes
 More-Recipes provides a platform for users to share the awesome and exciting  recipe ideas they have invented or learnt.  Suppose a user comes up with a recipe,  he/she can post it on More-Recipes and  get feedback in form of reviews and votes from other users who explore that recipe. Users can also keep a list of their favorite recipes on the application.
 
 ## Getting Started
+More recipes v1.0.0-beta is a Node.js app built with the express framework
+It runs on node version 5.x.x
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
+## Prerequisites
 
-### Prerequisites
+You will probably need git to clone this repo to your 
+local machine,then postman to send sample tests to the api
+First of all just clone this repo.
+You have to install node on your local machine first,
 
-What things you need to install the software and how to install them
-
-```
-Give examples
 ```
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
+run `npm install`
+run `npm run start:dev` to get the app running
+console should log api running on port 3000
 
-Say what the step will be
 
-```
-Give the example
-```
+### Dependencies
+All dependencies can be found in package.json file,all listed below
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.9.0",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "mocha": "^4.0.1",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.1",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.17.2",
+    "supertest": "^3.0.0",
+    "uuid": "^3.1.0"
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
+After successfully Installing The App,To run tests,
+run `npm tests
 
 ### Break down into end to end tests
 
@@ -59,23 +76,22 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* NodeJs
+* express
+* sequelize
+* Postgresql
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://gist.github.com/Efosaok/morerecipes) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [Slate](http://semver.org/) Documentation
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* Solo Project By Efosa Okpugie
 
 ## License
 
