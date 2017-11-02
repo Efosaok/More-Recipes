@@ -50,21 +50,11 @@ run `npm tests
 
 Explain what these tests test and why
 
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+The live version of this Api is hosted live on 
+[More-recipes](https://efosa-more-recipes-api.herokuapp.com/)
 
 ## Built With
 
@@ -81,7 +71,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/Efosaok/morerecipes) for d
 
 We use [Slate](http://semver.org/) Documentation
 
-## Authors
+## Author
 
 * Solo Project By Efosa Okpugie
 
