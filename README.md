@@ -77,10 +77,10 @@ We use [Slate](http://semver.org/) for Documentation
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Andela License - see the [LICENSE.md](andela.com) file for details
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* All my awesome LFA's, Mr Anu and Mr Tomi,Wonderful BFA's Mr Philips and Ms. Victoria
+* Awsome peers,group teammates and my Bestie, Idris
+* World class
