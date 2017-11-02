@@ -11,12 +11,16 @@ It runs on node version 5.x.x
 ### Installing
 
 run `npm install`
+To install all dependencies required for app to work fully
+
 run `npm run start:dev` to get the app running
 console should log api running on port 3000
 
 
 ### Api Endpoints
 All dependencies can be found in package.json file,all listed below
+
+
   *POST* /api/v1/users/signup   ``//signup route 
 
   *POST* /api/v1/users/signin  ``//signin route
