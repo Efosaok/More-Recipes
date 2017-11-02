@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     id: {
       allowNull: false,
@@ -36,8 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Users.associate = (models) => {
-    Users.belongsToMany(models.Recipes, { as: 'recipeAction', through: models.Recipeactions });
-    Users.hasMany(models.Recipes, { as: 'recipes' });
+    Users.hasMany(models.Recipes, { as: 'recipes', foreignKey: 'creatorId' });
+    Users.hasMany(models.Favorites, { foreignKey: 'userId' });
   };
   return Users;
 };

@@ -1,5 +1,11 @@
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Recipes = sequelize.define('Recipes', {
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,6 +32,26 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'SET NULL',
       onUpdate: 'CASCADE',
     },
+    upvotes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    downvotes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    favorites: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    views: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    reviews: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
   }, {
     classMethods: {
       associate: (models) => {
@@ -34,8 +60,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Recipes.associate = (models) => {
-    Recipes.belongsTo(models.Users, { as: 'creator' });
-    Recipes.belongsToMany(models.Users, { as: 'userActions', through: models.Recipeactions });
+    Recipes.belongsTo(models.Users, { as: 'creator', foreignKey: 'creatorId' });
   };
   return Recipes;
 };

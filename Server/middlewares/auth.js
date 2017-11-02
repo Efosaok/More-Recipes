@@ -14,7 +14,7 @@ const verifyToken = (req, res, next) => {
       }
     });
   } else {
-    return res.status(403).send({ error: 'No token found' });
+    return res.status(403).send({ error: 'You have to login First' });
   }
 };
 

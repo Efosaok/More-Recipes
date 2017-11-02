@@ -63,9 +63,9 @@ const checkInvalidReview = (req, res, next) => {
   } else {
     let isUndefined = false;
     let isNull = false;
-    const { reviews } = req.body;
+    const { message } = req.body;
     const { recipeId } = req.params;
-    [reviews, recipeId].forEach((params) => {
+    [message, recipeId].forEach((params) => {
       if (params === undefined) {
         isUndefined = true;
       }
@@ -79,10 +79,10 @@ const checkInvalidReview = (req, res, next) => {
     if (isNull) {
       return res.status(400).send({ error: 'Your review cannot be empty text' });
     }
-    if (!isUndefined && !alphaNumeric(reviews) && Number.isInteger(parseFloat(reviews))) {
+    if (!isUndefined && !alphaNumeric(message) && Number.isInteger(parseFloat(message))) {
       return res.status(400).send({ error: 'Your reviews should be text and not numbers' });
     }
-    if (reviews.replace(/\s/g, '').length === 0 && typeof review !== 'number') {
+    if (message.replace(/\s/g, '').length === 0 && typeof message !== 'number') {
       return res.status(400).send({ error: 'Your review message cannot contain only white spaces' });
     } else {
       next();
