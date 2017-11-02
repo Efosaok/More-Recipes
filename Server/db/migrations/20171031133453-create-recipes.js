@@ -33,6 +33,26 @@ module.exports = {
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE',
       },
+      upvotes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      downvotes: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      favorites: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      views: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      reviews: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
