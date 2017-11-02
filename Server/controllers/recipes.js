@@ -59,7 +59,7 @@ class Recipe {
         return res.status(200).send({
           message: 'Success',
           recipes,
-        })
+        });
       })
       .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
   }
@@ -140,7 +140,7 @@ class Recipe {
             })
             .then((recipe) => {
               recipe.updateAttributes({
-                votes: recipe.downvotes - 1,
+                downvotes: recipe.downvotes - 1,
               });
             })
             .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
@@ -162,7 +162,7 @@ class Recipe {
                 })
                 .then((recipe) => {
                   recipe.updateAttributes({
-                    votes: recipe.downvotes + 1,
+                    downvotes: recipe.downvotes + 1,
                   });
                   return res.status(200).send({ message: 'hurray,You have successfully downvote the recipe' });
                 })
@@ -192,7 +192,7 @@ class Recipe {
             })
             .then((recipe) => {
               recipe.updateAttributes({
-                votes: recipe.upvotes - 1,
+                upvotes: recipe.upvotes - 1,
               });
             })
             .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
@@ -214,9 +214,9 @@ class Recipe {
                 })
                 .then((recipe) => {
                   recipe.updateAttributes({
-                    votes: recipe.upvotes + 1,
+                    upvotes: recipe.upvotes + 1,
                   });
-                  return res.status(200).send({ message: 'hurray,You have successfully fupvote the recipe' });
+                  return res.status(200).send({ message: 'hurray,You have successfully upvote the recipe' });
                 })
                 .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
             })

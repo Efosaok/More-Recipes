@@ -25,7 +25,6 @@ const checkValidUserDetails = (req, res, next) => {
   const reqBody = [firstname, lastname, username, email, password, confirmpassword];
   let undefinedBody;
   let isNull = false;
-  let isWhiteSpace = false;
   for (let i = 0; i < reqBody.length; i += 1) {
     if (reqBody[i] === undefined) {
       undefinedBody = matchingDetails[i];
@@ -33,21 +32,15 @@ const checkValidUserDetails = (req, res, next) => {
     if (reqBody[i] === '') {
       isNull = true;
     }
-    if (!undefinedBody && reqBody[i].replace(/\s/g, '').length === 0) {
-      isWhiteSpace = true;
-    }
   }
   if (undefinedBody) {
     return res.status(400).send({ error: `Please input ${undefinedBody}` });
   }
+  if (!isValidEmail(email)) {
+    return res.status(400).send({ error: 'Please enter a valid email' });
+  }
   if (isNull) {
     return res.status(400).send({ error: 'An input field cannot be blank' });
-  }
-  if (isWhiteSpace) {
-    return res.status(400).send({ error: 'Input field cannot contain only white spaces' });
-  }
-  if (!isValidEmail) {
-    return res.status(400).send({ error: 'Please enter a valid email' });
   }
   if (!undefinedBody && Number.isInteger(parseFloat(firstname || lastname || username))) {
     return res.status(400).send({ error: 'Your names cannot be digits only' });
