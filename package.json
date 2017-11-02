@@ -1,0 +1,41 @@
+{
+  "name": "more-recipes",
+  "version": "1.0.0",
+  "description": "more recipes api",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel ./Server/ -d ./Server/dist",
+    "start:dev": "nodemon ./Server/server.js --exec babel-node ./Server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Efosaok/More-Recipes.git"
+  },
+  "author": "Efosa Okpugie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Efosaok/More-Recipes/issues"
+  },
+  "homepage": "https://github.com/Efosaok/More-Recipes#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "eslint": "^4.9.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.1",
+    "pg": "^7.3.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.17.2"
+  }
+}
