@@ -1,6 +1,3 @@
-## status -Ongoing development
-[![Coverage Status](https://coveralls.io/repos/github/Efosaok/More-Recipes/badge.svg?branch=development)](https://coveralls.io/github/Efosaok/More-Recipes?branch=development) [![Build Status](https://travis-ci.org/Efosaok/More-Recipes.svg?branch=development)](https://travis-ci.org/Efosaok/More-Recipes)
-=======
 ## status
 [![Coverage Status](https://coveralls.io/repos/github/Efosaok/More-Recipes/badge.svg?branch=development)](https://coveralls.io/github/Efosaok/More-Recipes?branch=development) [![Build Status](https://travis-ci.org/Efosaok/More-Recipes.svg?branch=development)](https://travis-ci.org/Efosaok/More-Recipes) [![Maintainability](https://api.codeclimate.com/v1/badges/1d2147dde2b3b480038b/maintainability)](https://codeclimate.com/github/Efosaok/More-Recipes/maintainability)
 # More-Recipes
@@ -10,14 +7,6 @@ More-Recipes provides a platform for users to share the awesome and exciting  re
 More recipes v1.0.0-beta is a Node.js app built with the express framework
 It runs on node version 5.x.x
 
-## Prerequisites
-
-You will probably need git to clone this repo to your 
-local machine,then postman to send sample tests to the api
-First of all just clone this repo.
-You have to install node on your local machine first,
-
-```
 
 ### Installing
 
@@ -26,32 +15,32 @@ run `npm run start:dev` to get the app running
 console should log api running on port 3000
 
 
-### Dependencies
+### Api Endpoints
 All dependencies can be found in package.json file,all listed below
+  *POST* /api/v1/users/signup   ``//signup route 
 
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.1",
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "dotenv": "^4.0.0",
-    "eslint": "^4.9.0",
-    "express": "^4.16.2",
-    "jsonwebtoken": "^8.1.0",
-    "mocha": "^4.0.1",
-    "morgan": "^1.9.0",
-    "nodemon": "^1.12.1",
-    "pg": "^7.3.0",
-    "pg-hstore": "^2.3.2",
-    "sequelize": "^4.17.2",
-    "supertest": "^3.0.0",
-    "uuid": "^3.1.0"
+  *POST* /api/v1/users/signin  ``//signin route
 
+  *POST* /api/v1/recipes  ``//add a recipe route
+
+  *DELETE* /api/v1/recipes/<recipeId>  ``//delete a recipe from db route
+
+  *PUT*  /api/v1/recipes/<recipeId>  ``//route to modify a recipe
+
+  *POST* /api/v1/recipes/<recipeId>/reviews  ``//route to post a review
+
+  *GET* /api/v1/recipes/<recipeId>/  ``//route to get a recipe
+
+  *GET*  /api/v1/recipes/  ``//route to get all recipes
+
+  *GET*  /api/v1/users/<recipeId>/favorites ``route to get all favorites recipes of a particular user
+
+  *POST* /api/v1/recipes/<recipeId>/upvote    ``// route to upvote a recipe
+
+  *POST* /api/v1/recipes/<recipeId>/downvote   ``// route to downvote a recipe
+
+  *POST* /api/v1/recipes/<recipeId>/favorite     ``// route to favorite a recipe
+    
 ## Running the tests
 
 After successfully Installing The App,To run tests,
