@@ -54,7 +54,7 @@ Explain what these tests test and why
 ## Deployment
 
 The live version of this Api is hosted live on 
-[More-recipes](https://efosa-more-recipes-api.herokuapp.com/)
+[heroku](https://efosa-more-recipes-api.herokuapp.com/)
 
 ## Built With
 
@@ -63,13 +63,9 @@ The live version of this Api is hosted live on
 * sequelize
 * Postgresql
 
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/Efosaok/morerecipes) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Versioning
 
-We use [Slate](http://semver.org/) Documentation
+We use [Slate](http://semver.org/) for Documentation
 
 ## Author
 
