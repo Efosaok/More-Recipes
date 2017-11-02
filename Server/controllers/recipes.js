@@ -1,6 +1,9 @@
 import models from '../db/models';
 
-const Recipes = models.Recipes;
+const { Recipes } = models;
+const { Reviews } = models;
+const { Favorites } = models;
+const { votes } = models;
 
 class Recipe {
   static addRecipe(req, res) {
@@ -10,154 +13,267 @@ class Recipe {
       description,
       ingredients,
     } = req.body;
-    const { userId } = req.decoded;
+    const creatorId = req.decoded.userId;
     return Recipes
-    .create({
-      name,
-      category,
-      description,
-      ingredients,
-      userId,
-    })
-    .then(user => res.status(200).send({ message: 'Success, recipe creadte', user }))
-    .catch(error => res.status(400).send({ error: 'an error occured' }));
+      .create({
+        name,
+        category,
+        description,
+        ingredients,
+        creatorId,
+      })
+      .then(recipe => res.status(200).send({ message: 'Success, recipe created', recipe }))
+      .catch(error => res.status(400).send({ error: error.message }));
   }
 
   static deleteRecipe(req, res) {
     const { recipeId } = req.params;
-    let isFound = false;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        recipesDatabase.splice(0, 1);
-        isFound = true;
-      }
-    });
-    if (isFound === true) {
-      res.status(200).send({ message: 'recipe successfully deleted' });
-    } else {
-      res.status(400).send({ error: 'recipe you intended to delete does not exist' });
-    }
+    return Recipes
+      .findOne({
+        where: {
+          id: recipeId,
+        },
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(400).send({ error: 'Recipe you intended to delete not found' });
+        }
+        if (recipe.creatorId !== req.decoded.userId) {
+          return res.status(403).send({ error: 'You cannot delete a recipe added by another user' });
+        }
+        return recipe.destroy().then(res.status(200).send({ message: 'recipe successfully deleted' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
+      })
+      .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
   }
 
   static getAllRecipes(req, res) {
-    const {
-      sort,
-      order,
-    } = req.query;
-    let allRecipes;
-    if (sort === 'upvotes' && order === 'des') {
-      recipesDatabase.sort((a, b) => {
-        allRecipes = b.upvotes - a.upvotes;
-        res.status(200).send({ message: 'Success', allRecipes });
-      });
-    } else {
-      res.status(200).send(recipesDatabase);
-    }
+    return Recipes
+      .findAll()
+      .then((recipes) => {
+        if (recipes.length < 1) {
+          return res.status(404).send({ message: 'No recipes found in database' });
+        }
+        if (req.query.sort === 'upvotes' && req.query.order === 'desc') {
+          recipes.sort((a, b) => b.upvotes - a.upvotes);
+        }
+        return res.status(200).send({
+          message: 'Success',
+          recipes,
+        })
+      })
+      .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
   }
 
   static getARecipe(req, res) {
     const { recipeId } = req.params;
-    let isFound = false;
-    let oneRecipe;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        oneRecipe = recipe;
-        isFound = true;
-      }
-    });
-    if (isFound) {
-      res.status(200).send({ message: 'Success, recipe is found', oneRecipe });
-    } else {
-      res.status(400).send({ error: 'recipe you intended to find cannot be found' });
-    }
+    return Recipes
+      .findOne({
+        where: {
+          id: recipeId,
+        },
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({ error: 'Recipe you intended to get cannot be found' });
+        }
+        return res.status(200).send({ message: 'Success', recipe });
+      })
+      .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
   }
 
   static postReview(req, res) {
-    const currentDate = `${new Date()}`;
-    const { reviews } = req.body;
+    const { 
+      message,
+      rating,
+    } = req.body;
+    const { userId } = req.decoded;
     const { recipeId } = req.params;
-    const createdAt = currentDate.slice(0, 24);
-    const updatedAt = currentDate.slice(0, 24);
-    reviewIdTracker += 1;
-    const id = reviewIdTracker;
-    const response = {
-      id,
-      reviews,
-      recipeId,
-      createdAt,
-      updatedAt,
-    };
-    reviewsDatabase.push(response);
-    let isFound = false;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        recipe.reviews += 1;
-        recipe.updatedAt = updatedAt;
-        isFound = true;
-      }
-    });
-    if (isFound) {
-      res.status(200).send({ message: 'Success, Your review has been saved', response });
-    } else {
-      res.status(400).send({ message: 'The recipe you intended to review cannot be found' });
-    }
+    return Reviews
+      .create({
+        message,
+        rating,
+        userId,
+        recipeId,
+      })
+      .then(review => res.status(200).send({ message: 'review successfully posted', review }))
+      .catch(error => res.status(500).send({ message: `an error occured: ${error.message}` }));
   }
 
   static modifyRecipe(req, res) {
     const { recipeId } = req.params;
-    const currentDate = `${new Date()}`;
-    let recipeIsFound = false;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        recipe.name = req.body.name || recipe.name;
-        recipe.category = req.body.category || recipe.category;
-        recipe.creator = req.body.creator || recipe.creator;
-        recipe.ingredients = req.body.ingredients || recipe.ingredients;
-        recipe.updatedAt = currentDate.slice(0, 24);
-        recipeIsFound = true;
-      }
-    });
-    if (recipeIsFound) {
-      res.status(201).send({ message: 'Success, Your recipe has been updated' });
-    } else {
-      res.status(400).send({ message: 'The recipe you intended to modify cannot be found' });
-    }
-  }
-
-  static upvoteRecipe(req, res) {
-    const { recipeId } = req.params;
-    const currentDate = `${new Date()}`;
-    let isFound = false;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        recipe.upvotes += 1;
-        recipe.updatedAt = currentDate.slice(0, 24);
-        isFound = true;
-      }
-    });
-    if (isFound) {
-      res.status(200).send({ message: 'Success, You have successfully upvoted the recipe' });
-    } else {
-      res.status(400).send({ error: 'The recipe you intended to upvote cannot be found' });
-    }
+    return Recipes
+      .findOne({
+        where: {
+          id: recipeId,
+        },
+      })
+      .then((recipe) => {
+        if (!recipe) {
+          return res.status(404).send({ error: 'Recipe you intended to modify cannot be found' });
+        }
+        recipe.updateAttributes({
+          name: req.body.name || recipe.name,
+          category: req.body.category || recipe.category,
+          description: req.body.description || recipe.description,
+          ingredients: req.body.ingredients || recipe.ingredients,
+        });
+        return res.status(200).send({ message: 'recipe successfully modified' });
+      })
+      .catch(error => res.status(400).send({ error: `an error occured: ${error.message}` }));
   }
 
   static downvoteRecipe(req, res) {
-    const { recipeId } = req.params;
-    const currentDate = `${new Date()}`;
-    let isFound = false;
-    recipesDatabase.forEach((recipe) => {
-      if (recipe.id === parseFloat(recipeId)) {
-        recipe.downvotes += 1;
-        recipe.updatedAt = currentDate.slice(0, 24);
-        isFound = true;
-      }
-    });
-    if (isFound) {
-      res.status(200).send({ message: 'Success, You have successfully downvoted the recipe' });
-    } else {
-      res.status(400).send({ error: 'The recipe you intended to downvote cannot be found' });
-    }
+    return votes
+      .findOne({
+        where: {
+          recipeId: req.params.recipeId,
+          voteType: 'downvote',
+        },
+      })
+      .then((vote) => {
+        if (vote !== null && vote.userId === req.decoded.userId) {
+          Recipes
+            .findOne({
+              where: {
+                id: req.params.recipeId,
+              },
+            })
+            .then((recipe) => {
+              recipe.updateAttributes({
+                votes: recipe.downvotes - 1,
+              });
+            })
+            .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+          return vote.destroy().then(res.status(200).send({ message: 'You have previously downvoted this recipe,your last downvote no longer counts' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
+        }
+        if (!vote || vote.userId !== req.decoded.userId) {
+          votes
+            .create({
+              recipeId: req.params.recipeId,
+              userId: req.decoded.userId,
+              voteType: 'downvote',
+            })
+            .then(() => {
+              return Recipes
+                .findOne({
+                  where: {
+                    id: req.params.recipeId,
+                  },
+                })
+                .then((recipe) => {
+                  recipe.updateAttributes({
+                    votes: recipe.downvotes + 1,
+                  });
+                  return res.status(200).send({ message: 'hurray,You have successfully downvote the recipe' });
+                })
+                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+            })
+            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+        }
+      })
+      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
+  }
+
+  static upvoteRecipe(req, res) {
+    return votes
+      .findOne({
+        where: {
+          recipeId: req.params.recipeId,
+          voteType: 'upvote',
+        },
+      })
+      .then((vote) => {
+        if (vote !== null && vote.userId === req.decoded.userId) {
+          Recipes
+            .findOne({
+              where: {
+                id: req.params.recipeId,
+              },
+            })
+            .then((recipe) => {
+              recipe.updateAttributes({
+                votes: recipe.upvotes - 1,
+              });
+            })
+            .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+          return vote.destroy().then(res.status(200).send({ message: 'You have previously upvoted this recipe,your last upvote no longer counts' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
+        }
+        if (!vote || vote.userId !== req.decoded.userId) {
+          votes
+            .create({
+              recipeId: req.params.recipeId,
+              userId: req.decoded.userId,
+              voteType: 'upvote',
+            })
+            .then(() => {
+              return Recipes
+                .findOne({
+                  where: {
+                    id: req.params.recipeId,
+                  },
+                })
+                .then((recipe) => {
+                  recipe.updateAttributes({
+                    votes: recipe.upvotes + 1,
+                  });
+                  return res.status(200).send({ message: 'hurray,You have successfully fupvote the recipe' });
+                })
+                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+            })
+            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+        }
+      })
+      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
+  }
+
+  static favoriteRecipe(req, res) {
+    return Favorites
+      .findOne({
+        where: {
+          recipeId: req.params.recipeId,
+        },
+      })
+      .then((favorite) => {
+        if (favorite !== null && favorite.userId === req.decoded.userId) {
+          Recipes
+            .findOne({
+              where: {
+                id: req.params.recipeId,
+              },
+            })
+            .then((recipe) => {
+              recipe.updateAttributes({
+                favorites: recipe.favorites - 1,
+              });
+            })
+            .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+          return favorite.destroy().then(res.status(200).send({ message: 'You have previously favorited this recipe,your last favorite no longer counts' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
+        }
+        if (!favorite || favorite.userId !== req.decoded.userId) {
+          Favorites
+            .create({
+              recipeId: req.params.recipeId,
+              userId: req.decoded.userId,
+            })
+            .then(() => {
+              Recipes
+                .findOne({
+                  where: {
+                    id: req.params.recipeId,
+                  },
+                })
+                .then((recipe) => {
+                  recipe.updateAttributes({
+                    favorites: recipe.favorites + 1,
+                  });
+                  return res.status(200).send({ message: 'hurray,You have successfully favorited the recipe' });
+                })
+                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+            })
+            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+        }
+      })
+      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
   }
 }
 
