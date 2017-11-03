@@ -10,7 +10,7 @@ export default (app) => {
   app.delete('/api/v1/recipes/:recipeId', auth, recipeController.deleteRecipe);
   app.get('/api/v1/recipes', recipeController.getAllRecipes);
   app.post('/api/v1/recipes/:recipeId/reviews', auth, errorHandler.checkInvalidReview, recipeController.postReview);
-  app.put('/api/v1/recipes/:recipeId', recipeController.modifyRecipe);
+  app.put('/api/v1/recipes/:recipeId', auth, errorHandler.checkInvalidModification, recipeController.modifyRecipe);
   app.post('/api/v1/recipes/:recipeId/upvote', auth, recipeController.upvoteRecipe);
   app.post('/api/v1/recipes/:recipeId/downvote', auth, recipeController.downvoteRecipe);
   app.get('/api/v1/recipes/:recipeId', recipeController.getARecipe);

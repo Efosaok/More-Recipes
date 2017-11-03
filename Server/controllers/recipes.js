@@ -23,7 +23,7 @@ class Recipe {
         creatorId,
       })
       .then(recipe => res.status(200).send({ message: 'Success, recipe created', recipe }))
-      .catch(error => res.status(400).send({ error: error.message }));
+      .catch(error => res.status(400).send({ error: 'an error occured' }));
   }
 
   static deleteRecipe(req, res) {
@@ -41,9 +41,14 @@ class Recipe {
         if (recipe.creatorId !== req.decoded.userId) {
           return res.status(403).send({ error: 'You cannot delete a recipe added by another user' });
         }
-        return recipe.destroy().then(res.status(200).send({ message: 'recipe successfully deleted' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
+        return recipe.destroy().then(res.status(200).send({ message: 'recipe successfully deleted' })).catch(error => res.status(500).send({ error: 'an error occured' }));
       })
-      .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${recipeId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static getAllRecipes(req, res) {
@@ -51,7 +56,7 @@ class Recipe {
       .findAll()
       .then((recipes) => {
         if (recipes.length < 1) {
-          return res.status(404).send({ message: 'No recipes found in database' });
+          return res.status(404).send({ message: 'No recipes found' });
         }
         if (req.query.sort === 'upvotes' && req.query.order === 'desc') {
           recipes.sort((a, b) => b.upvotes - a.upvotes);
@@ -78,11 +83,16 @@ class Recipe {
         }
         return res.status(200).send({ message: 'Success', recipe });
       })
-      .catch(error => res.status(500).send({ error: `An error ocurred: ${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${recipeId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static postReview(req, res) {
-    const { 
+    const {
       message,
       rating,
     } = req.body;
@@ -95,8 +105,22 @@ class Recipe {
         userId,
         recipeId,
       })
-      .then(review => res.status(200).send({ message: 'review successfully posted', review }))
-      .catch(error => res.status(500).send({ message: `an error occured: ${error.message}` }));
+      .then((review) => {
+        Recipes.findById(recipeId)
+          .then((recipe) => {
+            recipe.updateAttributes({
+              reviews: recipe.reviews + 1,
+            });
+            return res.status(200).send({ message: 'You have successfully reviewed the recipe', review });
+          })
+          .catch(error => res.status({ error: 'An error occured' }));
+      })
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${recipeId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static modifyRecipe(req, res) {
@@ -111,6 +135,9 @@ class Recipe {
         if (!recipe) {
           return res.status(404).send({ error: 'Recipe you intended to modify cannot be found' });
         }
+        if (recipe !== null && recipe.creatorId !== req.decoded.userId) {
+          return res.status(404).send({ message: 'You cannot modify a recipe added by another User' });
+        }
         recipe.updateAttributes({
           name: req.body.name || recipe.name,
           category: req.body.category || recipe.category,
@@ -119,7 +146,12 @@ class Recipe {
         });
         return res.status(200).send({ message: 'recipe successfully modified' });
       })
-      .catch(error => res.status(400).send({ error: `an error occured: ${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${req.params.userId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static downvoteRecipe(req, res) {
@@ -166,12 +198,17 @@ class Recipe {
                   });
                   return res.status(200).send({ message: 'hurray,You have successfully downvote the recipe' });
                 })
-                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+                .catch(error => res.status(500).send({ error: `${error.message}` }));
             })
-            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+            .catch(error => res.status(500).send({ error: `${error.message}` }));
         }
       })
-      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${req.params.userId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static upvoteRecipe(req, res) {
@@ -218,12 +255,17 @@ class Recipe {
                   });
                   return res.status(200).send({ message: 'hurray,You have successfully upvote the recipe' });
                 })
-                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+                .catch(error => res.status(500).send({ error: `${error.message}` }));
             })
-            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+            .catch(error => res.status(500).send({ error: `${error.message}` }));
         }
       })
-      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${req.params.userId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
+      });
   }
 
   static favoriteRecipe(req, res) {
@@ -246,7 +288,7 @@ class Recipe {
                 favorites: recipe.favorites - 1,
               });
             })
-            .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+            .catch(error => res.status(500).send({ error: 'an error occured' }));
           return favorite.destroy().then(res.status(200).send({ message: 'You have previously favorited this recipe,your last favorite no longer counts' })).catch(error => res.status(500).send({ error: `An error ocurred ${error.message}` }));
         }
         if (!favorite || favorite.userId !== req.decoded.userId) {
@@ -268,12 +310,17 @@ class Recipe {
                   });
                   return res.status(200).send({ message: 'hurray,You have successfully favorited the recipe' });
                 })
-                .catch(error => res.status(500).send({ error: `me  eeee:${error.message}` }));
+                .catch(error => res.status(500).send({ error: 'an error occured' }));
             })
-            .catch(error => res.status(500).send({ error: `me  1:${error.message}` }));
+            .catch(error => res.status(500).send({ error: 'an error occured' }));
         }
       })
-      .catch(error => res.status(500).send({ error: `me  4:${error.message}` }));
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${req.params.userId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: 'an error occurred' });
+      });
   }
 }
 

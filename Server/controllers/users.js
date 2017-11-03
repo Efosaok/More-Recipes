@@ -6,7 +6,6 @@ import models from '../db/models';
 dotenv.config();
 const { Users } = models;
 const { Recipes } = models;
-const { Favorites } = models;
 
 const secret = process.env.SECRET;
 
@@ -20,7 +19,7 @@ class User {
     } = req.body;
     bcrypt.hash(req.body.password, 10, (err, hash) => {
       if (err) {
-        return res.status(500).send({ error: `an error occured ${err}` });
+        return res.status(500).send({ error: 'an error occurred' });
       }
       const password = hash;
       return Users
@@ -38,13 +37,13 @@ class User {
           const token = jwt.sign(payload, secret, {
             expiresIn: '10h', // expires in 1 hours
           });
-          res.status(200).send({ message: 'You have successfully signed up', user, token, payload });
+          res.status(200).send({ message: 'You have successfully signed up', token });
         })
         .catch((error) => {
           if (error.message === 'Validation error') {
-            res.status(400).send({ error: 'Username or email already exists' });
+            res.status(400).send({ error: 'email or username already exists' });
           } else {
-            res.status(400).send({ error: `an error occured: ${error.message}` });
+            res.status(400).send({ error: 'an error occured' });
           }
         });
     });
@@ -73,12 +72,12 @@ class User {
             const token = jwt.sign(payload, secret, {
               expiresIn: '10h', // expires in 1 hours
             });
-            return res.status(200).send({ message: 'You have successfully logged in', token, payload });
+            return res.status(200).send({ message: 'You have successfully logged in', token });
           }
-          return res.status(400);
+          return res.status(400).send({ error: 'Invalid Username or password' });
         });
       })
-      .catch(error => res.status(500).send({ error: `an error occured: ${error.message}` }));
+      .catch(error => res.status(500).send({ error: 'an error occurred' }));
   }
 
   static getUserFavoriteRecipes(req, res) {
@@ -93,8 +92,21 @@ class User {
           .then((userFavourites) => {
             res.status(200).send({ message: 'Success', userFavourites });
           })
-          .catch(error => res.status(500).send({ error: `an error occured: ${error.message}` }));
+          .catch(error => (500).send({ error: `an error occured: ${error.message}` }));
+      })
+      .catch((error) => {
+        if (error.message === `invalid input syntax for uuid: \"${req.params.userId}\"`) {
+          return res.status(400).send({ error: 'You sent an invalid Id,try better next time' });
+        }
+        return res.status(500).send({ error: `an error occured: ${error.message}` });
       });
+  }
+
+  static getAllUsers(req, res) {
+    return Users
+      .findAll()
+      .then(users => res.status(200).send(users))
+      .catch(error => res.status(500).send({ error: `an error occurred ${error.message}` }));
   }
 }
 export default User;

@@ -1,12 +1,12 @@
-import dotenv from 'dotenv';
+require('dotenv').config();
 
-dotenv.config();
-
+console.log(process.env.USERNAME)
+console.log(process.env.PASSWORD)
 module.exports = {
   development: {
-    username: process.env.USERNAME,
-    password: process.env.PASSWORD,
-    database: process.env.USERNAME,
+    username: 'pggcvpyn',
+    password: '_yFVWCbs1T_z9tLYys68q-lmhRoAhYm9',
+    database: 'pggcvpyn',
     host: 'babar.elephantsql.com',
     dialect: 'postgres',
     port: 5432,

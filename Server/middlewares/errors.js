@@ -13,30 +13,25 @@ const checkNullInput = (req, res, next) => {
   } else {
     let isUndefined = false;
     let isNull = false;
-    let isWhiteSpace = false;
     let isString = true;
     const {
       name,
       category,
       description,
-      creator,
       ingredients,
     } = req.body;
-    [name, category, description, creator, ingredients].forEach((info) => {
+    [name, category, description, ingredients].forEach((info) => {
       if (info === undefined) {
         isUndefined = true;
-      }
-      if (info === '') {
-        isNull = true;
       }
       if (!isUndefined && !alphaNumeric(info)) {
         if (Number.isInteger(parseFloat(info))) {
           isString = false;
         }
       }
-      if (!isUndefined && typeof info !== 'number') {
-        if (info.replace(/\s/g, '').length === 0) {
-          isWhiteSpace = true;
+      if (!isUndefined) {
+        if (info.trim().length < 1) {
+          isNull = true;
         }
       }
     });
@@ -48,9 +43,6 @@ const checkNullInput = (req, res, next) => {
     }
     if (!isString) {
       return res.status(400).send({ error: 'Only texts can be inputed' });
-    }
-    if (isWhiteSpace) {
-      return res.status(400).send({ error: 'Your input should not contain only white-spaces' });
     } else {
       next();
     }
@@ -69,8 +61,10 @@ const checkInvalidReview = (req, res, next) => {
       if (params === undefined) {
         isUndefined = true;
       }
-      if (params === '') {
-        isNull = true;
+      if(!isUndefined) {
+        if (params.trim().length < 1) {
+          isNull = true;
+        }
       }
     });
     if (isUndefined) {
@@ -81,16 +75,61 @@ const checkInvalidReview = (req, res, next) => {
     }
     if (!isUndefined && !alphaNumeric(message) && Number.isInteger(parseFloat(message))) {
       return res.status(400).send({ error: 'Your reviews should be text and not numbers' });
-    }
-    if (message.replace(/\s/g, '').length === 0 && typeof message !== 'number') {
-      return res.status(400).send({ error: 'Your review message cannot contain only white spaces' });
     } else {
       next();
     }
   }
 };
 
+const checkInvalidModification = (req, res, next) => {
+  const {
+    name,
+    category,
+    description,
+    ingredients,
+    } = req.body;
+  let modifiedFields = [];
+  let isUndefined = false;
+  let isNull = false;
+  let isString = true;
+  [name, category, description, ingredients].forEach((field) => {
+    if (field !== undefined) {
+      modifiedFields.push(field);
+    }
+  });
+  if (modifiedFields.length === 0) {
+    return res.status(400).send({ error: 'Please fill in the properties you want to modify' });
+  }
+  modifiedFields.forEach((info) => {
+    if (info === undefined) {
+      isUndefined = true;
+    }
+    if (!isUndefined && !alphaNumeric(info)) {
+      if (Number.isInteger(parseFloat(info))) {
+        isString = false;
+      }
+    }
+    if (!isUndefined) {
+      if (info.trim().length < 1) {
+        isNull = true;
+      }
+    }
+  });
+  if (isUndefined) {
+    return res.status(400).send({ error: 'Please fill in all fields' });
+  }
+  if (isNull) {
+    return res.status(400).send({ error: 'A field does not contain any input' });
+  }
+  if (!isString) {
+    return res.status(400).send({ error: 'Only texts can be inputed' });
+  } else {
+    next();
+  }
+};
+
 export default {
   checkNullInput,
   checkInvalidReview,
+  checkInvalidModification,
 };
