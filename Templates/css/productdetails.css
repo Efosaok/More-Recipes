@@ -200,24 +200,65 @@
 
 .footer {
    background-color: grey;
-   margin-top: 8%;
+   margin-top: 2%;
    left: 0;
    bottom: 0;
    width: 100%;
    color: white;
-   height: 40px;
+   height: 50px;
    border-top: 5px solid pink;
 }
 
 .footer-one {
-	margin-top: -3%;
+	margin-top: 1%;
 	margin-left: 80%;
 	font-size: 1em;
 }
 
+.fa-heart {
+	margin-top: -2%
+	margin-left: 30%;
+	font-size: 1em;
+	color: black
+}
 .text-footer {
 	margin-top: 1%;
 	margin-left: 2%;
+}
+
+.footer-text {
+	padding: 7%;
+	font-size: 1em;
+}
+
+.copyright-text {
+	margin-top: 1%;
+}
+
+.social-media-icons {
+	margin-top: 5%;
+	padding: 12px;
+}
+
+.footer-search {
+	margin-top: 1%;
+	width: 25%;
+	margin-left: 2%;
+}
+
+.searchbtn-footer {
+	margin-top: 1%;
+}
+
+.owner-text {
+	font-size: 10px;
+	color: grey
+}
+
+.description {
+	font-size: 13px;
+	margin-top: 1%;
+	color: grey;
 }
 
 ul {
@@ -273,8 +314,9 @@ ul {
 .review-form{
 	margin-bottom: 10%;
 	width: 50%;
-	margin-top: 3%;
-	margin-left: 3%;
+	margin-top: 4%;
+	margin-left: 10%;
+	border: 2px solid pink;
 }
 
 .review {

@@ -29,8 +29,10 @@
 }
 
 .submit-btn {
-	height: 50px;
-	font-size: 25px;
+	width: 120px;
+	height: 45px;
+	font-size: 23px;
+	background-color: skyblue;
 }
 
 .submit-btn:hover {

@@ -2,6 +2,9 @@
 * css styling for More recipes landing page by Efosa Okpugie,
 * All rights reserved.
 */
+.fa-thumbs-up,.fa-thumbs-down, .fa-eye {
+  padding-left: 4%
+}
 
 #flipkart-navbar {
     color: grey;
@@ -240,8 +243,9 @@
 }
 
 .star-level {
-	color: gold;
-	margin-top: -7%;
+	color: pink;
+	margin-top: 3%;
+	font-size: 1.5em;
 }
 
 .num-of-reviews {

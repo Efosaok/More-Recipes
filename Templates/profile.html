@@ -24,24 +24,13 @@
                 <li class="upper-links"><a class="links" href="">Dessert</a></li>
                 <li class="upper-links"><a class="links" href="">Healthy</a></li>
                 <li class="upper-links"><a class="links" href="">Events</a></li>
-                <li class="upper-links">
-                    <a class="links" href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html#">
-                        <svg class="" width="16px" height="15px" style="overflow: visible;">
-                            <path d="M8.037 17.546c1.487 0 2.417-.93 2.417-2.417H5.62c0 1.486.93 2.415 2.417 2.415m5.315-6.463v-2.97h-.005c-.044-3.266-1.67-5.46-4.337-5.98v-.81C9.01.622 8.436.05 7.735.05 7.033.05 6.46.624 6.46 1.325v.808c-2.667.52-4.294 2.716-4.338 5.98h-.005v2.972l-1.843 1.42v1.376h14.92v-1.375l-1.842-1.42z" fill="#fff"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="upper-links dropdown"><a class="links" href="http://clashhacks.in/"><i class="fa fa-user"></i></a>
-                    <ul class="dropdown-menu">
-                        <li class="profile-li"><a class="profile-links" href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html#">Log out</a></li>
-                    </ul>
-                </li>
+                <li class="upper-links"><a class="links" href="">Log Out</a></li>
             </ul>
         </div>
         <div class="row row2">
             <div class="col-sm-2">
-                <h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()" style="color: pink">☰ More~Recipes</span></h2>
-                <h1 style="margin:0px;"><span class="largenav" style="color: pink">More~recipes</span></h1>
+                <a href="../index.html"><h2 style="margin:0px;"><span class="smallnav menu" onclick="openNav()" style="color: pink">☰ More~Recipes</span></h2></a>
+                <a href="../index.html"><h1 style="margin:0px;"><span class="largenav" style="color: pink">More~recipes</span></h1></a>
             </div>
             <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
                 <div class="row">
@@ -69,7 +58,7 @@
     <a href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html#" class="sidenav-links">Events</a>
     <li class="upper-links dropdown"><a class="links" href=""><i class="fa fa-user"></i></a>
         <ul class="dropdown-menu">
-            <li class="profile-li"><a class="profile-links" href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html#">Logout</a></li>
+            <li class="profile-li"><a class="profile-links" href="./yourrecipes.html">Logout</a></li>
         </ul>
     </li>
 </div>
@@ -131,13 +120,13 @@
                 </h3>
                 <ul class="user-menu-list">
                     <li>
-                        <h4>Roselynn Smith reviewed your recipe,see <a href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html">what she said</a></h4>
+                        <h4>Roselynn Smith reviewed your recipe,see <a href="./yourrecipes.html">what she said</a></h4>
                     </li>
                     <li>
                         <h4>Jonathan Hawkins upvoted your recipe</h4>
                     </li>
                     <li>
-                        <h4>Gracie Jenkins downvoted your recipe, see <a href="file:///C:/Users/efosa/Documents/More-Recipes/Templates/profile.html">review</a></h4>
+                        <h4>Gracie Jenkins downvoted your recipe, see <a href="./yourrecipes.html">review</a></h4>
                     </li>
                     <li>
                         <button type="button" class="btn btn-labeled btn-success" href="#">
@@ -194,25 +183,6 @@
 </div>
 
 <div class="footer">
-	<div class="search">
-		<div class="flipkart-navbar-search smallsearch">
-                <div class="row">
-                    <input class="flipkart-navbar-input footer-search" type="" placeholder="Discover More Recipes" name="">
-                    <button class="btn flipkart-navbar-button searchbtn searchbtn-footer">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-	</div>
-	
-	<div class="row footer-one">
-		<a href="#"><div class="col-xs-4 social-media-icons fa fa-twitter"></div></a>
-		<a href="#"><div class="col-xs-4 social-media-icons fa fa-facebook"></div></a>
-		<a href="#"><div class="col-xs-4 social-media-icons fa fa-google"></div></a>
-		<a href="#"><div class="col-xs-4 social-media-icons fa fa-pinterest"></div></a>
-		<a href="#"><div class="col-xs-4 social-media-icons fa fa-linkedin"></div></a>
-	</div>
-
 	<div class="copyright-text"><p class="text-center">All rights reserved © More-recipes 2017.</p></div>
 
 </div>
@@ -227,6 +197,20 @@
     document.getElementById("mySidenav").style.width = "0";
     document.body.style.backgroundColor = "rgba(0,0,0,0)";
 	}
+
+	$(document).ready(function() {
+    var $btnSets = $('#responsive'),
+    $btnLinks = $btnSets.find('a');
+ 
+    $btnLinks.click(function(e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.user-menu>div.user-menu-content").removeClass("active");
+        $("div.user-menu>div.user-menu-content").eq(index).addClass("active");
+    });
+});
 </script>
 
 </body></html>

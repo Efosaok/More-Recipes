@@ -433,7 +433,8 @@ div.user-menu div.user-menu-content:not(.active){
    bottom: 0;
    width: 100%;
    color: white;
-   height: 100px;
+   position: fixed;
+   height: 45px;
    border-top: 5px solid pink;
 }
 
