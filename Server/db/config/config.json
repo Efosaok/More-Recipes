@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "pggcvpyn",
+    "password": "_yFVWCbs1T_z9tLYys68q-lmhRoAhYm9",
+    "database": "pggcvpyn",
+    "host": "babar.elephantsql.com",
+    "dialect": "postgres",
+    "port": 5432
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
